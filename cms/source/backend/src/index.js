@@ -16,5 +16,10 @@ async function init() {
     }
   }
   app.listen(8000, () => console.log('ILoveHK Movie API on :8000'));
+  for (const m of seed) {
+    await pool.query(
+      `UPDATE movies SET poster_url = $1 WHERE title = $2 AND poster_url LIKE 'https://placehold.co/%'`,
+      [m.poster_url, m.title]);
+  }
 }
 init().catch(err => { console.error(err); process.exit(1); });

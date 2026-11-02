@@ -4,15 +4,15 @@
     "year": 2002,
     "genre": "Hình sự",
     "description": "Hai kẻ nằm vùng ở hai phía cảnh sát và xã hội đen.",
-    "poster_url": "https://placehold.co/300x450/1c1c1c/e50914?text=Infernal+Affairs",
+    "poster_url": "https://image.tmdb.org/t/p/w500/gix9thDBXfjJ8M7rYbihqbQGBcP.jpg",
     "trailer_url": "https://www.youtube.com/watch?v=3lLaYujX6lA"
   },
   {
     "title": "Tuyệt Đỉnh Kungfu (Kung Fu Hustle)",
     "year": 2004,
     "genre": "Hài, Võ thuật",
-    "description": "Khu ổ chuột Trư Lung Thành và băng Rìu.",
-    "poster_url": "https://placehold.co/300x450/1c1c1c/e50914?text=Kung+Fu+Hustle",
+    "description": "Khu ổ chuột Trư Lung Thành",
+    "poster_url": "https://image.tmdb.org/t/p/w500/exbyTbrvRUDKN2mcNEuVor4VFQW.jpg",
     "trailer_url": "https://www.youtube.com/watch?v=FtE9-o6dBEI"
   },
   {
@@ -20,7 +20,7 @@
     "year": 2001,
     "genre": "Hài",
     "description": "Võ Thiếu Lâm mang vào sân bóng.",
-    "poster_url": "https://placehold.co/300x450/1c1c1c/e50914?text=Shaolin+Soccer",
+    "poster_url": "https://image.tmdb.org/t/p/w500/z6ZQqwoxWy9muIxwUP4K2zWw7BU.jpg",
     "trailer_url": "https://www.youtube.com/watch?v=KEWUDWYDdYs"
   },
   {
@@ -28,7 +28,7 @@
     "year": 2000,
     "genre": "Tình cảm",
     "description": "Hong Kong thập niên 60 và hai người hàng xóm.",
-    "poster_url": "https://placehold.co/300x450/1c1c1c/e50914?text=In+the+Mood+for+Love",
+    "poster_url": "https://image.tmdb.org/t/p/w500/8BgGbbWiLNhPtkMkN0gGTnbtvBv.jpg",
     "trailer_url": "https://www.youtube.com/watch?v=m8GuedsQnWQ"
   },
   {
@@ -36,7 +36,7 @@
     "year": 1986,
     "genre": "Hành động",
     "description": "Tình huynh đệ trong thế giới ngầm.",
-    "poster_url": "https://placehold.co/300x450/1c1c1c/e50914?text=A+Better+Tomorrow",
+    "poster_url": "https://image.tmdb.org/t/p/w500/uxZIWxOm2yonHyjLARzW37aEZjF.jpg",
     "trailer_url": "https://www.youtube.com/watch?v=vv9gw6eVtWU"
   }
 ]
