@@ -1,4 +1,4 @@
-# ILoveHK Movie – CMS trên AWS EKS
+# CMS trên AWS EKS
 
 Mock Project DevOps – Trần Công Minh, lớp DO2602.
 
