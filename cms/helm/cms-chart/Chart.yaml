@@ -1,0 +1,5 @@
+apiVersion: v2
+name: cms-chart
+description: ILoveHK Movie (frontend + backend) tren EKS
+version: 0.1.0
+appVersion: "v1"

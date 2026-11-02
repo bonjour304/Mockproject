@@ -1,0 +1,12 @@
+{{- if .Values.metricsScrape }}
+apiVersion: operator.victoriametrics.com/v1beta1
+kind: VMServiceScrape
+metadata:
+  name: backend
+spec:
+  selector: { matchLabels: { app: backend } }   # khớp label của Service backend
+  endpoints:
+    - port: http                                 # tên port trong Service backend
+      path: /api/metrics
+      interval: 30s
+{{- end }}

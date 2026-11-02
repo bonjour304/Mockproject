@@ -1,0 +1,11 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+tfplan
+*.log
+.secrets/
+.docker/
+.registry
+node_modules/
+dist/
+.claude/

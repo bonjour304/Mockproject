@@ -1,0 +1,8 @@
+image:
+  tag: b471672
+backend:
+  replicas: 1
+  autoscaling: {enabled: false}
+frontend:
+  replicas: 1
+  autoscaling: {enabled: false}

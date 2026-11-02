@@ -1,0 +1,52 @@
+# Mat khau admin va REPO_URL truyen bang --set trong deploy.sh, khong ghi vao Git
+controller:
+  admin:
+    username: admin
+  additionalPlugins: [credentials-binding, pipeline-stage-view, job-dsl]
+  resources:
+    requests: { cpu: 250m, memory: 1Gi }
+    limits:   { cpu: "1", memory: 2Gi }
+  # Secret github-token (tu tao bang kubectl) -> bien ${github-token-username}, ${github-token-token}
+  additionalExistingSecrets:
+    - name: github-token
+      keyName: username
+    - name: github-token
+      keyName: token
+  JCasC:
+    configScripts:
+      github: |
+        security:
+          globalJobDslSecurityConfiguration:
+            useScriptSecurity: false
+        credentials:
+          system:
+            domainCredentials:
+              - credentials:
+                  - usernamePassword:
+                      scope: GLOBAL
+                      id: github-token
+                      username: "${github-token-username}"
+                      password: "${github-token-token}"
+                      description: "GitHub fine-grained token (Contents read/write, 1 repo)"
+        jobs:
+          - script: >
+              pipelineJob('ilovehk-movie') {
+                definition {
+                  cpsScm {
+                    scm {
+                      git {
+                        remote { url('${REPO_URL}'); credentials('github-token') }
+                        branch('*/eks-lab')
+                      }
+                    }
+                    scriptPath('cms/Jenkinsfile')
+                    lightweight(true)
+                  }
+                }
+              }
+persistence:
+  storageClass: gp3
+  size: 8Gi
+serviceAccountAgent:
+  create: true
+  name: jenkins-agent     # khop Pod Identity trong eks.tf

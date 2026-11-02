@@ -1,0 +1,7 @@
+dex: { enabled: false }
+notifications: { enabled: false }
+configs:
+  params:
+    server.insecure: true    # lab: truy cap qua port-forward HTTP
+  cm:
+    timeout.reconciliation: 60s   # poll Git moi 60 giay

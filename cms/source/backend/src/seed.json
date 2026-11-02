@@ -1,0 +1,42 @@
+[
+  {
+    "title": "Vô Gian Đạo (Infernal Affairs)",
+    "year": 2002,
+    "genre": "Hình sự",
+    "description": "Hai kẻ nằm vùng ở hai phía cảnh sát và xã hội đen.",
+    "poster_url": "https://placehold.co/300x450/1c1c1c/e50914?text=Infernal+Affairs",
+    "trailer_url": "https://www.youtube.com/watch?v=3lLaYujX6lA"
+  },
+  {
+    "title": "Tuyệt Đỉnh Kungfu (Kung Fu Hustle)",
+    "year": 2004,
+    "genre": "Hài, Võ thuật",
+    "description": "Khu ổ chuột Trư Lung Thành và băng Rìu.",
+    "poster_url": "https://placehold.co/300x450/1c1c1c/e50914?text=Kung+Fu+Hustle",
+    "trailer_url": "https://www.youtube.com/watch?v=FtE9-o6dBEI"
+  },
+  {
+    "title": "Đội Bóng Thiếu Lâm (Shaolin Soccer)",
+    "year": 2001,
+    "genre": "Hài",
+    "description": "Võ Thiếu Lâm mang vào sân bóng.",
+    "poster_url": "https://placehold.co/300x450/1c1c1c/e50914?text=Shaolin+Soccer",
+    "trailer_url": "https://www.youtube.com/watch?v=KEWUDWYDdYs"
+  },
+  {
+    "title": "Tâm Trạng Khi Yêu (In the Mood for Love)",
+    "year": 2000,
+    "genre": "Tình cảm",
+    "description": "Hong Kong thập niên 60 và hai người hàng xóm.",
+    "poster_url": "https://placehold.co/300x450/1c1c1c/e50914?text=In+the+Mood+for+Love",
+    "trailer_url": "https://www.youtube.com/watch?v=m8GuedsQnWQ"
+  },
+  {
+    "title": "Anh Hùng Bản Sắc (A Better Tomorrow)",
+    "year": 1986,
+    "genre": "Hành động",
+    "description": "Tình huynh đệ trong thế giới ngầm.",
+    "poster_url": "https://placehold.co/300x450/1c1c1c/e50914?text=A+Better+Tomorrow",
+    "trailer_url": "https://www.youtube.com/watch?v=vv9gw6eVtWU"
+  }
+]

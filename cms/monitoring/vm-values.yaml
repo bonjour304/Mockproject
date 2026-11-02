@@ -1,0 +1,7 @@
+# Mat khau Grafana truyen bang --set trong deploy.sh
+vmsingle:
+  spec:
+    retentionPeriod: "1d"
+    storage:
+      storageClassName: gp3
+      resources: { requests: { storage: 5Gi } }

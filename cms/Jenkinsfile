@@ -1,0 +1,118 @@
+// CI cho ILoveHK Movie: test -> build/push ECR (BuildKit) -> ghi tag vao Git cho ArgoCD
+// Code nam o thu muc cms/ tren nhanh eks-lab cua repo
+pipeline {
+  agent {
+    kubernetes {
+      yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  serviceAccountName: jenkins-agent          # Pod Identity -> quyen push ECR
+  containers:
+    - name: node
+      image: node:22-alpine
+      command: [sleep]
+      args: [infinity]
+    - name: tools
+      image: alpine:3.22
+      command: [sleep]
+      args: [infinity]
+    - name: buildkit
+      image: moby/buildkit:rootless
+      command: [sleep]
+      args: [infinity]
+      env: [ { name: BUILDKITD_FLAGS, value: --oci-worker-no-process-sandbox } ]
+      securityContext:
+        runAsUser: 1000
+        runAsGroup: 1000
+        seccompProfile: { type: Unconfined }
+        appArmorProfile: { type: Unconfined }
+'''
+    }
+  }
+  options { disableConcurrentBuilds() }
+  triggers { pollSCM('H/2 * * * *') }
+  environment {
+    APP    = 'cms'        // thu muc code trong repo
+    BRANCH = 'eks-lab'
+  }
+  stages {
+    stage('Checkout') {
+      steps {
+        script {
+          env.TAG  = sh(script: 'git rev-parse --short HEAD', returnStdout: true).trim()
+          // commit do Jenkins day len (co [skip ci]) thi bo qua, tranh lap vo han
+          env.SKIP = sh(script: 'git log -1 --pretty=%B', returnStdout: true).contains('[skip ci]') ? 'true' : 'false'
+          if (env.SKIP == 'true') { currentBuild.result = 'NOT_BUILT' }
+        }
+      }
+    }
+    stage('Test') {
+      when { expression { env.SKIP != 'true' } }
+      steps { container('node') { dir("${APP}/source/backend") { sh 'npm ci && npm test' } } }
+    }
+    stage('ECR login') {
+      when { expression { env.SKIP != 'true' } }
+      steps {
+        container('tools') {
+          sh '''
+            apk add --no-cache aws-cli git yq >/dev/null
+            ACCOUNT=$(aws sts get-caller-identity --query Account --output text)
+            REG=$ACCOUNT.dkr.ecr.ap-southeast-1.amazonaws.com
+            TOKEN=$(aws ecr get-login-password --region ap-southeast-1)
+            mkdir -p .docker
+            printf '{"auths":{"%s":{"auth":"%s"}}}' "$REG" "$(printf 'AWS:%s' "$TOKEN" | base64 | tr -d '\\n')" > .docker/config.json
+            echo "$REG/cms-minh" > .registry
+          '''
+          script { env.REGISTRY = readFile('.registry').trim() }
+        }
+      }
+    }
+    stage('Build & Push (BuildKit)') {
+      when { expression { env.SKIP != 'true' } }
+      steps {
+        container('buildkit') {
+          sh '''
+            export DOCKER_CONFIG=$WORKSPACE/.docker
+            for app in backend frontend; do
+              buildctl-daemonless.sh build --frontend dockerfile.v0 \\
+                --local context=$APP/source/$app --local dockerfile=$APP/source/$app \\
+                --output type=image,name=$REGISTRY/$app:$TAG,push=true
+            done
+          '''
+        }
+      }
+    }
+    stage('GitOps: dev + staging') {
+      when { expression { env.SKIP != 'true' } }
+      steps { container('tools') { script { bumpTag('dev staging') } } }
+    }
+    stage('Duyệt production') {
+      when { expression { env.SKIP != 'true' } }
+      steps { timeout(time: 30, unit: 'MINUTES') { input message: "Đưa ${env.TAG} lên production?", ok: 'Deploy' } }
+    }
+    stage('GitOps: prod') {
+      when { expression { env.SKIP != 'true' } }
+      steps { container('tools') { script { bumpTag('prod') } } }
+    }
+  }
+}
+
+// Ghi image.tag moi vao values-<env>.yaml roi push bang GitHub token (HTTPS) - ArgoCD se sync
+def bumpTag(String envs) {
+  withCredentials([usernamePassword(credentialsId: 'github-token',
+      usernameVariable: 'GIT_USER', passwordVariable: 'GIT_TOKEN')]) {
+    withEnv(["ENVS=${envs}"]) {
+      sh '''
+        git config --global --add safe.directory '*'
+        ORIGIN=$(git config --get remote.origin.url)          # https://github.com/<user>/<repo>.git
+        AUTH_URL="https://${GIT_USER}:${GIT_TOKEN}@${ORIGIN#https://}"
+        git config user.name jenkins && git config user.email jenkins@example.com
+        git fetch "$AUTH_URL" $BRANCH && git checkout -B $BRANCH FETCH_HEAD
+        for env in $ENVS; do yq -i ".image.tag = \\"$TAG\\"" $APP/helm/cms-chart/values-$env.yaml; done
+        git commit -am "deploy $TAG to $ENVS [skip ci]"
+        git push "$AUTH_URL" HEAD:$BRANCH
+      '''
+    }
+  }
+}
