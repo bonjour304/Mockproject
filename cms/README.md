@@ -24,7 +24,7 @@ git push → Jenkins (pod agent trong EKS): Test → Build (BuildKit) → Push E
         → duyệt tay → ghi tag vào values-prod.yaml → ArgoCD sync cms-prod
 ```
 
-Jenkins không deploy trực tiếp; Git là nguồn sự thật. Rollback = `git revert` commit đổi tag.
+Jenkins không deploy trực tiếp; Git là source. Rollback = `git revert` commit đổi tag.
 
 ## Chạy local
 
@@ -40,7 +40,7 @@ cd source/frontend && npm install && npm run dev                                
 Cần AWS CLI (đã `aws configure`), Terraform, kubectl, Helm.
 
 ```bash
-REPO_URL=https://github.com/bonjour304/ilovehk-demo.git ./deploy.sh
+REPO_URL=https://github.com/bonjour304/Mockproject.git ./deploy.sh
 ```
 
 Script dừng ở `WAITING_FOR_SECRETS` để người chạy tự nạp GitHub token (fine-grained, quyền Contents
