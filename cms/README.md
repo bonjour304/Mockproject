@@ -1,6 +1,6 @@
 # CMS trên AWS EKS
 
-Mock Project DevOps – Trần Công Minh, lớp DO2602.
+Mock Project DevOps – Trần Công Minh, lớp DO2605.
 
 CMS quản lý danh mục phim (React + Node.js/Express + PostgreSQL) chạy trên Amazon EKS.
 Hạ tầng dựng bằng Terraform, CI bằng Jenkins, CD theo mô hình GitOps với ArgoCD.
