@@ -41,7 +41,7 @@ echo "== terraform destroy"
 terraform -chdir=iac/terraform destroy -auto-approve -input=false -no-color
 echo "DESTROY_EXIT=$?"
 
-echo "== Kiem tra con sot (nen rong)"
+echo "== Kiem tra con sot khong"
 aws eks list-clusters --region $REGION --query clusters --output text
 aws rds describe-db-instances --region $REGION --query 'DBInstances[].DBInstanceIdentifier' --output text
 aws ec2 describe-nat-gateways --region $REGION --filter Name=state,Values=available,pending --query 'NatGateways[].NatGatewayId' --output text
