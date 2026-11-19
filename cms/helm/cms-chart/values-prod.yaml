@@ -1,4 +1,4 @@
 image:
-  tag: 6a0f8b9
+  tag: f62d706
 enableStress: true # chi bat luc demo HPA
 metricsScrape: true # can CRD VMServiceScrape (victoria-metrics-k8s-stack)
