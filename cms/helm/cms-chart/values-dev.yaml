@@ -1,5 +1,5 @@
 image:
-  tag: "2482615"
+  tag: 66ecab2
 backend:
   replicas: 1
   autoscaling: {enabled: false}
