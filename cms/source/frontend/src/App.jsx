@@ -71,7 +71,7 @@ export default function App() {
         </div>
       )}
 
-      <footer>ILoveHK Movie · Mock Project DevOps · chay thu CI/CD</footer>
+      <footer>ILoveHK Movie · Mock Project DevOps · v2</footer>
     </div>
   );
 }
