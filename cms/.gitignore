@@ -9,3 +9,6 @@ tfplan
 node_modules/
 dist/
 .claude/
+
+# Kich ban thuyet trinh - khong day len GitHub
+KICH-BAN-DEMO.md
