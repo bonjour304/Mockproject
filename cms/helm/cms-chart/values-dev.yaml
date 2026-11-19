@@ -1,5 +1,5 @@
 image:
-  tag: d66fd0d
+  tag: 66ecab2
 backend:
   replicas: 1
   autoscaling: {enabled: false}
